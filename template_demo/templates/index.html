@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+{% load filters %}
+{% load tags %}
+
+{% block page_content %}
+
+<div>
+
+</div>
+{{ csrf_token }}
+<h2> Normal: {{ values }}</h2>
+<h2> Odd: {{ values|odd }}</h2>
+{% info_students student %}
+
+<div>
+    {% sample_tag %}
+{% sample_tag 17 'Doncho' True %}
+{% sample_tag department='Engine' company='SoftUni' %}
+</div>
+
+<h1>
+    {{ title }}: {{ value }}
+</h1>
+<p>
+    {{ student_info }}
+</p>
+
+
+<div>
+    {% if students %}
+       {{ students|join:', ' }}
+    {% else %}
+        No students
+    {% endif %}
+</div>
+<h3>Without if_changed</h3>
+<ul>
+    {% for student in students %}
+        <li>{{ student }}</li>
+    {% empty %}
+        <li> No students bro</li>
+    {% endfor %}
+
+</ul>
+
+<h3> Pure for</h3>
+
+<ul>
+    {% for student in students %}
+        {% ifchanged student %}
+            <li>{{ student }}</li>
+        {% endifchanged %}
+    {% endfor %}
+</ul>
+
+{% endblock %}
